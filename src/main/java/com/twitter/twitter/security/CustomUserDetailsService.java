@@ -1,0 +1,23 @@
+package com.twitter.twitter.security;
+
+import com.twitter.twitter.entity.User;
+import com.twitter.twitter.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class CustomUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .map(User.class::cast)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+    }
+}
