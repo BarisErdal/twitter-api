@@ -1,0 +1,203 @@
+:root {
+  color-scheme: light;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 197, 61, 0.35), transparent 28%),
+    linear-gradient(135deg, #f7f2e8 0%, #e9f0ff 100%);
+  color: #1f2a37;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, monospace;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 40px 0 56px;
+}
+
+.hero-card,
+.feed-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(31, 42, 55, 0.08);
+  backdrop-filter: blur(14px);
+  border-radius: 28px;
+  box-shadow: 0 18px 45px rgba(50, 66, 92, 0.12);
+}
+
+.hero-card {
+  padding: 32px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8b5e34;
+}
+
+.hero-card h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  line-height: 1;
+}
+
+.subtitle {
+  max-width: 680px;
+  line-height: 1.6;
+  color: #4c5b6d;
+}
+
+.credentials-card {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.credentials-card label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.credentials-card input {
+  border: 1px solid rgba(31, 42, 55, 0.14);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.credentials-card button {
+  align-self: end;
+  border: none;
+  border-radius: 18px;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #0f766e 0%, #2563eb 100%);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 12px 25px rgba(37, 99, 235, 0.22);
+}
+
+.credentials-card button:disabled {
+  cursor: wait;
+  opacity: 0.75;
+}
+
+.endpoint {
+  margin: 20px 0 0;
+  color: #5f6d7c;
+}
+
+.endpoint span {
+  word-break: break-all;
+}
+
+.feed-card {
+  padding: 28px;
+}
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.feed-header h2 {
+  margin: 0;
+}
+
+.feed-header span {
+  color: #5f6d7c;
+}
+
+.status {
+  margin: 0;
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(15, 118, 110, 0.08);
+  color: #0f4a47;
+}
+
+.status.error {
+  background: rgba(190, 24, 93, 0.1);
+  color: #9d174d;
+}
+
+.tweet-list {
+  display: grid;
+  gap: 16px;
+}
+
+.tweet-card {
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 246, 255, 0.82));
+  border: 1px solid rgba(31, 42, 55, 0.08);
+}
+
+.tweet-meta,
+.tweet-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #5f6d7c;
+}
+
+.tweet-content {
+  margin: 14px 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #1f2a37;
+}
+
+@media (max-width: 860px) {
+  .credentials-card {
+    grid-template-columns: 1fr;
+  }
+
+  .credentials-card button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-shell {
+    width: min(100% - 20px, 1120px);
+    padding-top: 20px;
+  }
+
+  .hero-card,
+  .feed-card {
+    border-radius: 22px;
+    padding: 20px;
+  }
+
+  .tweet-meta,
+  .tweet-stats,
+  .feed-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
