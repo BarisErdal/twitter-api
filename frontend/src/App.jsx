@@ -18,11 +18,7 @@ export default function App() {
       const authHeader = `Basic ${btoa(`${username}:${password}`)}`;
       const requestUrl = `${endpoint}?userId=${encodeURIComponent(userId)}`;
       const response = await fetch(requestUrl, {
-        method: "GET",
-        headers: {
-          Authorization: authHeader,
-          Accept: "application/json"
-        }
+        method: "GET"
       });
 
       if (!response.ok) {
