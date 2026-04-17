@@ -10,6 +10,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class SecurityUtils {
@@ -27,14 +29,19 @@ public class SecurityUtils {
 
         Object principal = authentication.getPrincipal();
 
+
         if (principal instanceof User user) {
             return user.getId();
         }
 
         if (principal instanceof UserDetails userDetails) {
-            return userRepository.findByUsername(userDetails.getUsername())
-                    .map(User::getId)
-                    .orElseThrow(() -> new UnauthorizedException("Authenticated user not found"));
+            Optional<User> userOpt = userRepository.findByUsername(userDetails.getUsername());
+            if (userOpt.isPresent()) {
+                User user = userOpt.get();
+                return user.getId();
+            } else {
+                throw new UnauthorizedException("Authenticated user not found");
+            }
         }
 
         throw new UnauthorizedException("Authenticated user could not be resolved");

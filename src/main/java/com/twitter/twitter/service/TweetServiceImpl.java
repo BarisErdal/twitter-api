@@ -17,16 +17,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class TweetServiceImpl implements TweetService {
 
     private final TweetRepository tweetRepository;
     private final UserRepository userRepository;
     private final SecurityUtils securityUtils;
-
     private final TweetMapper tweetMapper = new TweetMapper();
 
     @Override
@@ -43,20 +41,20 @@ public class TweetServiceImpl implements TweetService {
     @Override
     @Transactional(readOnly = true)
     public List<TweetResponse> findByUserId(Long userId) {
-        log.info("Fetching tweets for userId: {}", userId);
+
         if (!userRepository.existsById(userId)) {
             throw new ResourceNotFoundException("User", userId);
         }
         return tweetRepository.findByUserIdOrderByIdDesc(userId)
                 .stream()
                 .map(tweet -> tweetMapper.toResponseDto(tweet, false))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public TweetResponse findById(Long id) {
-        log.info("Fetching tweet with id: {}", id);
+
         Tweet tweet = tweetRepository.findByIdWithDetails(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tweet", id));
         return tweetMapper.toResponseDto(tweet, true);
@@ -66,7 +64,7 @@ public class TweetServiceImpl implements TweetService {
     @Transactional
     public TweetResponse updateTweet(Long id, TweetRequest request) {
         User currentUser = findCurrentUser();
-        log.info("Updating tweet {} by userId: {}", id, currentUser.getId());
+
         Tweet tweet = tweetRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Tweet", id));
         validateOwnership(tweet.getUser().getId(), currentUser.getId(), "update");

@@ -45,8 +45,7 @@ public class LikeServiceImpl implements LikeService {
         like.setUser(currentUser);
 
         Like savedLike = likeRepository.save(like);
-        log.info("Like {} created by userId: {} for tweetId: {}",
-                savedLike.getId(), currentUser.getId(), tweet.getId());
+        //log.info("Like {} created by userId: {} for tweetId: {}", savedLike.getId(), currentUser.getId(), tweet.getId());
 
         return likeMapper.toResponseDto(savedLike);
     }
@@ -63,8 +62,7 @@ public class LikeServiceImpl implements LikeService {
                         "Like not found for tweet id: " + tweet.getId() + " and user id: " + currentUser.getId()));
 
         likeRepository.delete(like);
-        log.info("Like {} removed by userId: {} for tweetId: {}",
-                like.getId(), currentUser.getId(), tweet.getId());
+       // log.info("Like {} removed by userId: {} for tweetId: {}", like.getId(), currentUser.getId(), tweet.getId());
     }
 
     private User findCurrentUser() {

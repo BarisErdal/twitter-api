@@ -42,8 +42,6 @@ public class CommentServiceImpl implements CommentService {
         comment.setContent(request.content());
 
         Comment savedComment = commentRepository.save(comment);
-        log.info("Comment {} created by userId: {} for tweetId: {}",
-                savedComment.getId(), currentUser.getId(), tweet.getId());
 
         return commentMapper.toResponseDto(savedComment);
     }
@@ -60,7 +58,6 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setContent(request.content());
         Comment updatedComment = commentRepository.save(comment);
-        log.info("Comment {} updated by userId: {}", id, currentUser.getId());
 
         return commentMapper.toResponseDto(updatedComment);
     }
@@ -74,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
 
         validateDeletePermission(comment, currentUser.getId());
         commentRepository.delete(comment);
-        log.info("Comment {} deleted by userId: {}", id, currentUser.getId());
+
     }
 
     private User findCurrentUser() {
@@ -94,6 +91,7 @@ public class CommentServiceImpl implements CommentService {
         Long commentOwnerId = comment.getUser().getId();
         Long tweetOwnerId = comment.getTweet().getUser().getId();
 
+        //tweet sahibi veya yorum sahibi silebilir
         if (!commentOwnerId.equals(currentUserId) && !tweetOwnerId.equals(currentUserId)) {
             throw new UnauthorizedException(
                     "You are not authorized to delete this comment");

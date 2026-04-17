@@ -81,9 +81,9 @@ export default function App() {
           </button>
         </div>
 
-        <p className="endpoint">
+       {/*  <p className="endpoint">
           Request URL: <span>{endpoint}?userId={userId || "..."}</span>
-        </p>
+        </p> */}
       </section>
 
       <section className="feed-card">
